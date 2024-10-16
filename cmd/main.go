@@ -19,8 +19,8 @@ func main() {
 		return
 	}
 
-	a, _ := net.ResolveUDPAddr("udp4", "127.0.0.1:7000")
-	s, _ := net.ResolveUDPAddr("udp4", "127.0.0.1:")
+	a, _ := net.ResolveUDPAddr("udp4", "18.212.245.20:7000")
+	s, _ := net.ResolveUDPAddr("udp4", "0.0.0.0:")
 	laddr := sudp.LocalAddr{
 		VirtualAddress: 1001,
 		NetworkAddress: s,

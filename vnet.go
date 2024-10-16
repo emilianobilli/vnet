@@ -105,15 +105,17 @@ func (v *VnetSwitch) tx() {
 			panic(e)
 		}
 		ip, e := ipv4.ParseHeader(buff)
+		fmt.Println(ip)
 		if e != nil {
 			// Drop
-			continue
+			//continue
 		}
 		vaddr, ok := v.route.GetDestination(ip.Dst)
 		if !ok {
 			// Drop
-			continue
+			//continue
 		}
+		vaddr = 1001
 		if e := v.sock.SendTo(buff[0:n], vaddr); e != nil {
 			// Drop
 			fmt.Println(e)
