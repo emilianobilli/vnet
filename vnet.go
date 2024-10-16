@@ -77,6 +77,7 @@ func (v *VnetClient) tx() {
 		if e != nil {
 			panic(e)
 		}
+		fmt.Println(ipv4.ParseHeader(buff))
 		if e := v.sock.Send(buff[0:n]); e != nil {
 			// Drop
 			fmt.Println(e)
@@ -134,6 +135,7 @@ func (v *VnetSwitch) rx() {
 		if e != nil {
 			continue
 		}
+		fmt.Println(ip)
 		v.route.SetDestination(ip.Src, vaddr)
 		if vaddr, ok := v.route.GetDestination(ip.Dst); !ok || ip.Dst.Equal(v.self) {
 			if _, e := v.iface.Write(buff); e != nil {
