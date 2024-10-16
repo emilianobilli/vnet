@@ -42,6 +42,7 @@ func NewVnetSwitch(cird string, peer string, serverConfig string) (*VnetSwitch, 
 		self:  self,
 		iface: iface,
 		sock:  server,
+		route: &RouteTable{},
 	}
 	go vnets.tx()
 	go vnets.rx()
