@@ -74,11 +74,12 @@ func (v *VnetClient) tx() {
 	buff := make([]byte, v.iface.MTU)
 	for {
 		n, e := v.iface.Read(buff)
+		fmt.Println(buff)
 		if e != nil {
 			panic(e)
 		}
-		fmt.Println(ipv4.ParseHeader(buff))
-		if e := v.sock.Send(buff[0:n]); e != nil {
+		fmt.Println(ipv4.ParseHeader(buff[4:n]))
+		if e := v.sock.Send(buff[4:n]); e != nil {
 			// Drop
 			fmt.Println(e)
 			continue
@@ -106,7 +107,7 @@ func (v *VnetSwitch) tx() {
 			panic(e)
 		}
 		ip, e := ipv4.ParseHeader(buff)
-		fmt.Println(ip)
+		fmt.Println("TX:", ip)
 		if e != nil {
 			// Drop
 			//continue
