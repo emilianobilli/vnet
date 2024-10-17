@@ -74,7 +74,6 @@ func (v *VnetClient) tx() {
 	buff := make([]byte, v.iface.MTU)
 	for {
 		n, e := v.iface.Read(buff)
-		fmt.Println(buff)
 		if e != nil {
 			panic(e)
 		}
@@ -93,6 +92,7 @@ func (v *VnetClient) rx() {
 		if e != nil {
 			panic(e)
 		}
+		fmt.Println("RX", buff)
 		if _, e := v.iface.Write(buff); e != nil {
 			panic(e)
 		}
@@ -139,6 +139,7 @@ func (v *VnetSwitch) rx() {
 		fmt.Println(ip)
 		v.route.SetDestination(ip.Src, vaddr)
 		if vaddr, ok := v.route.GetDestination(ip.Dst); !ok || ip.Dst.Equal(v.self) {
+			fmt.Println("Escribiendo en la interfaz")
 			if _, e := v.iface.Write(buff); e != nil {
 				panic(e)
 			}
